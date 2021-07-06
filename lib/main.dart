@@ -6,7 +6,7 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget{
+class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -14,13 +14,12 @@ class MyApp extends StatefulWidget{
   }
 }
 
-
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
   void _answerQuestion() {
     setState(() {
-    _questionIndex++;
+      _questionIndex++;
     });
     print(_questionIndex);
   }
@@ -35,7 +34,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("My first app!"),
+          title: Text("My firs"),
         ),
         body: Column(
           children: [
@@ -47,7 +46,6 @@ class _MyAppState extends State<MyApp> {
               child: Text("Answer 1"),
             ),
             ElevatedButton(
-
               onPressed: _answerQuestion,
               child: Text("Answer 2"),
             ),
