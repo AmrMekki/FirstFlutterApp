@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './quesiton.dart';
+import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,10 @@ class _MyAppState extends State<MyApp> {
 
   void _answerQuestion() {
     setState(() {
-      _questionIndex++;
+      if (_questionIndex == 0)
+        _questionIndex++;
+      else
+        _questionIndex = 0;
     });
     print(_questionIndex);
   }
@@ -27,8 +31,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      "what's your favorite color?",
-      "what's your favorite animal?"
+      //Map
+      {
+        "questionText": "what's your favorite color?",
+        "Answers": ["Black", "Red", "Green", "White"]
+      },
+      {
+        "questionText": "what's your favorite animal?",
+        "Answers": ["Rabbit", "Snake", "Elephant", "Lion"]
+      },
+      {
+        "questionText": "who's your favorite instructor?",
+        "Answers": ["Max", "Max", "Max", "Mekki"]
+      },
     ];
 
     return MaterialApp(
@@ -41,18 +56,9 @@ class _MyAppState extends State<MyApp> {
             Question(
               questions[_questionIndex],
             ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: Text("Answer 1"),
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: Text("Answer 2"),
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: Text("Answer 3"),
-            ),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
