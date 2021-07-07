@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './quesiton.dart';
-import './answer.dart';
+// import './quesiton.dart';
+// import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,51 +18,64 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
+  final _questions = const [
+    {
+      "questionText": "what's your favorite color?",
+      "Answers": [
+        {"text": "Black", "score": 10},
+        {"text": "Red", "score": 5},
+        {"text": "Green", "score": 3},
+        {"text": "White", "score": 1}
+      ]
+    },
+    {
+      "questionText": "what's your favorite animal?",
+      "Answers": [
+        {"text": "Rabbit", "score": 3},
+        {"text": "Snake", "score": 11},
+        {"text": "Elephant", "score": 5},
+        {"text": "Lion", "score": 9}
+      ]
+    },
+    {
+      "questionText": "who's your favorite instructor?",
+      "Answers": [
+        {"text": "Max", "score": 10},
+        {"text": "Max", "score": 10},
+        {"text": "Max", "score": 10},
+        {"text": "Mekki", "score": 1}
+      ]
+    },
+  ];
 
-  void _answerQuestion() {
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
+  void _resetQuiz() {
     setState(() {
-      if (_questionIndex == 0)
-        _questionIndex++;
-      else
-        _questionIndex = 0;
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore += score;
+    setState(() {
+      _questionIndex++;
     });
     print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      //Map
-      {
-        "questionText": "what's your favorite color?",
-        "Answers": ["Black", "Red", "Green", "White"]
-      },
-      {
-        "questionText": "what's your favorite animal?",
-        "Answers": ["Rabbit", "Snake", "Elephant", "Lion"]
-      },
-      {
-        "questionText": "who's your favorite instructor?",
-        "Answers": ["Max", "Max", "Max", "Mekki"]
-      },
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("My firs"),
+          title: Text("My first"),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex],
-            ),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(_questions, _answerQuestion, _questionIndex)
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
